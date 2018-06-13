@@ -1,0 +1,43 @@
+# -*- coding: utf-8 -*-
+#
+# This file is part of COUNTER-Robots.
+# Copyright (C) 2018 CERN.
+#
+# COUNTER-Robots is free software; you can redistribute it and/or modify it
+# under the terms of the MIT License; see LICENSE file for more details.
+
+notifications:
+  email: false
+
+sudo: false
+
+language: python
+
+python:
+  - "2.7"
+  - "3.5"
+  - "3.6"
+
+before_install:
+  - "travis_retry pip install --upgrade pip setuptools py"
+  - "travis_retry pip install twine wheel coveralls"
+
+install:
+  - "travis_retry pip install .[all]"
+
+script:
+  - "./run-tests.sh"
+
+after_success:
+  - coveralls
+
+deploy:
+  provider: pypi
+  user: inveniosoftware
+  password:
+    secure: TODO:PYPISECUREHASH
+  distributions: "sdist bdist_wheel"
+  on:
+    tags: true
+    python: "3.6"
+    repo: inveniosoftware/counter-robots
