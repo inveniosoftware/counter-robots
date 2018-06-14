@@ -12,6 +12,7 @@ from __future__ import absolute_import, print_function
 
 import requests
 
+from counter_robots import _get_resource_path
 from counter_robots.config import config
 
 
@@ -26,5 +27,8 @@ def update_file(url, filename):
     resp = requests.get(url)
     if resp.status_code != 200:
         raise Exception('GET {} failed.'.format(url))
-    with open(filename, "w+") as f:
-        f.write(resp.text)
+    lines = resp.text.splitlines()
+    lines = [s for s in lines if not s.startswith('#')]
+    with open(_get_resource_path(filename), "w+") as f:
+        for line in lines:
+            f.write(line+'\n')

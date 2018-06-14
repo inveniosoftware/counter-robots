@@ -1,4 +1,3 @@
-# this file is generated from a master file, please modify it and regenerate it with the generate_lists.rb script
 bot
 spider
 crawl
