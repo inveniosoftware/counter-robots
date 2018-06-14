@@ -41,7 +41,7 @@ setup_requires = [
 ]
 
 install_requires = [
-    'requests==2.18.4',
+    'requests>=2.9.1',
 ]
 
 packages = find_packages()

@@ -10,7 +10,7 @@
 
 import pytest
 
-from counter_robots import _get_resource_content
+from counter_robots import _get_resource_content, is_machine, is_robot
 
 
 def test_version():
@@ -23,3 +23,17 @@ def test_get_resource_content():
     """Test version string."""
     data = _get_resource_content('machine.txt')
     assert data
+
+
+def test_is_robot():
+    machine_ua = 'Wget/1.14 (linux-gnu)'
+    robot_ua = 'AdsBot-Google (+http://www.google.com/adsbot.html)'
+    assert is_robot(machine_ua) is not True
+    assert is_robot(robot_ua) is True
+
+
+def test_is_machine():
+    machine_ua = 'Wget/1.14 (linux-gnu)'
+    robot_ua = 'AdsBot-Google (+http://www.google.com/adsbot.html)'
+    assert is_machine(machine_ua) is True
+    assert is_machine(robot_ua) is not True
