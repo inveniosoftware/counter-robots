@@ -9,3 +9,22 @@
 """Small script to update the list of robots and machines."""
 
 from __future__ import absolute_import, print_function
+
+import requests
+
+from counter_robots.config import config
+
+
+def update_lists():
+    """Update the files containing the list of robots and machines."""
+    update_file(config['ROBOTS_URL'], config['ROBOTS_FILE'])
+    update_file(config['MACHINE_URL'], config['ROBOTS_FILE'])
+
+
+def update_file(url, filename):
+    """Update the content of a single file."""
+    resp = requests.get(url)
+    if resp.status_code != 200:
+        raise Exception('GET {} failed.'.format(url))
+    with open(filename, "w+") as f:
+        f.write(resp.text)

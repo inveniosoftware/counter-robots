@@ -40,7 +40,9 @@ setup_requires = [
     'pytest-runner>=2.6.2',
 ]
 
-install_requires = []
+install_requires = [
+    'requests==2.18.4',
+]
 
 packages = find_packages()
 
