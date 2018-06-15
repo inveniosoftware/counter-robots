@@ -24,5 +24,17 @@
 
 Library for COUNTER-compliant detection of machines and robots.
 
+
+Update user agent pattern lists
+===============================
+The user agent pattern lists used to detect robots and machines come from
+`Make-Data-Count <https://github.com/CDLUC3/Make-Data-Count>`_.
+In order to update the lists, run the
+`update-lists <https://github.com/inveniosoftware/counter-robots/blob/master/scripts/update-lists.py>`_ script.
+Then commit the changes to the following files:
+
+* `machine.txt`
+* `robot.txt`
+
 Further documentation is available on
 https://counter-robots.readthedocs.io/
