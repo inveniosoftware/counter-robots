@@ -24,17 +24,21 @@
 
 Library for COUNTER-compliant detection of machines and robots.
 
+The purpose behind COUNTER is to enable comparable usage statistics by only
+reporting genuine user-driven usage for repositories. The purpose behind Code
+of Practice for Research Data is to split genuine COUNTER user-driven usage
+into human- and machine-based access.
 
-Update user agent pattern lists
-===============================
-The user agent pattern lists used to detect robots and machines come from
-`Make-Data-Count <https://github.com/CDLUC3/Make-Data-Count>`_.
-In order to update the lists, run the
-`update-lists <https://github.com/inveniosoftware/counter-robots/blob/master/scripts/update-lists.py>`_ script.
-Then commit the changes to the following files:
+This Python library implements a tiny API to check if a given user agent
+string from a browser is considered a robot/crawler/spider or a machine
+according to the `Code of Practice for Research Data
+<https://doi.org/10.7287/peerj.preprints.26505v1>`_ [1]  as well as the
+`COUNTER Code of Practice
+<https://www.projectcounter.org/code-of-practice-five-sections/abstract/>`_.
 
-* `machine.txt`
-* `robot.txt`
+The library depends on official lists published by both projects. You can see
+the lists on:
 
-Further documentation is available on
-https://counter-robots.readthedocs.io/
+- `Making Data Count
+  <https://github.com/CDLUC3/Make-Data-Count/tree/master/user-agents>`_
+- `COUNTER <https://github.com/atmire/COUNTER-Robots/>`_

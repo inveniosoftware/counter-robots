@@ -8,18 +8,27 @@
 
 .. include:: ../README.rst
 
-User's Guide
-------------
+.. include:: ../INSTALL.rst
 
-This part of the documentation will show you how to get started in using
-COUNTER-Robots.
+Usage
+=====
 
-.. toctree::
-   :maxdepth: 2
+The usage of the library is pretty simple. Import the library, and provide
+one of the API functions with a user agent string:
 
-   installation
-   usage
+>>> from counter_robots import is_machine, is_robot, is_robot_or_machine
+>>> is_machine('Wget/1.14 (linux-gnu)')
+True
+>>> is_robot('AdsBot-Google (+http://www.google.com/adsbot.html)')
+True
+>>> is_robot_or_machine('Mozilla/5.0')
+False
 
+API
+===
+
+.. automodule:: counter_robots
+    :members:
 
 Additional Notes
 ----------------
@@ -30,6 +39,7 @@ interested.
 .. toctree::
    :maxdepth: 1
 
+   developer
    contributing
    changes
    license

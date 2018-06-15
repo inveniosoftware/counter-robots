@@ -10,21 +10,13 @@
 
 from __future__ import absolute_import, print_function
 
-from os.path import join
-import pkg_resources
 import re
+from functools import wraps
+from os.path import join
+
+import pkg_resources
 
 from .version import __version__
-
-
-config = dict(
-    ROBOTS_URL='https://raw.githubusercontent.com/CDLUC3/Make-Data-Count/'
-               'master/user-agents/lists/robot.txt',
-    MACHINE_URL='https://raw.githubusercontent.com/CDLUC3/Make-Data-Count/'
-                'master/user-agents/lists/machine.txt',
-    ROBOTS_FILE='robot.txt',
-    MACHINES_FILE='machine.txt'
-)
 
 
 def _get_resource_content(filename):
@@ -32,33 +24,56 @@ def _get_resource_content(filename):
     return pkg_resources.resource_string(__name__, join('data', filename))
 
 
-def _get_resource_path(filename):
-    """Retrieve path of a file in this Python package."""
-    return pkg_resources.resource_filename(__name__, join('data', filename))
+def memoize(func):
+    """Cache result of function call."""
+    cache = {}
+
+    @wraps(func)
+    def inner(filename):
+        if filename not in cache:
+            cache[filename] = func(filename)
+        return cache[filename]
+    return inner
 
 
+@memoize
 def _regexp(filename):
     """Get a list of patterns from a file and make a regular expression."""
     lines = _get_resource_content(filename).decode('utf-8').splitlines()
     return re.compile('|'.join(lines))
 
 
-robots_regexp = _regexp(config['ROBOTS_FILE'])
-machines_regexp = _regexp(config['MACHINES_FILE'])
+def _match_useragent(user_agent, filename):
+    return bool(_regexp(filename).search(user_agent))
 
 
 def is_robot(user_agent):
-    """Detect if the user agent belongs to a robot."""
-    if user_agent is None:
-        return False
-    return bool(robots_regexp.search(user_agent))
+    """Determine if user agent is a robot/crawler/spider.
+
+    Determined according to the *Code of Practice for Research Data*.
+    """
+    return _match_useragent(user_agent, 'robot.txt')
 
 
 def is_machine(user_agent):
-    """Detect if a user agent belongs to a machine."""
-    if user_agent is None:
-        return True
-    return bool(machines_regexp.search(user_agent))
+    """Determine if user agent is a machine (e.g. script).
+
+    Determined according to the *Code of Practice for Research Data*.
+    """
+    return _match_useragent(user_agent, 'machine.txt')
 
 
-__all__ = ('__version__', )
+def is_robot_or_machine(user_agent):
+    """Determine if a user agent is a machine/robot or human.
+
+    Determined according to the *COUNTER Code of Practice*.
+    """
+    return is_robot(user_agent) or is_machine(user_agent)
+
+
+__all__ = (
+    '__version__',
+    'is_machine',
+    'is_robot',
+    'is_robot_or_machine',
+)

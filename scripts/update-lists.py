@@ -6,29 +6,56 @@
 # COUNTER-Robots is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Small script to update the list of robots and machines."""
+"""Small script to update the list of robots and machines.
+
+Usage:
+
+.. code-block:: console
+
+    $ cd scripts
+    $ python update-lists.py
+"""
 
 from __future__ import absolute_import, print_function
 
-import requests
+from os.path import dirname, join
 
-from counter_robots import _get_resource_path
-from counter_robots.config import config
+try:
+    from urllib.request import urlopen
+except ImportError:
+    from urllib import urlopen
 
 
-def update_lists():
-    """Update the files containing the list of robots and machines."""
-    update_file(config['ROBOTS_URL'], config['ROBOTS_FILE'])
-    update_file(config['MACHINE_URL'], config['ROBOTS_FILE'])
+files = [
+    ('machine.txt',
+     'https://raw.githubusercontent.com/CDLUC3/Make-Data-Count/'
+     'master/user-agents/lists/machine.txt'),
+    ('robot.txt',
+     'https://raw.githubusercontent.com/CDLUC3/Make-Data-Count/'
+     'master/user-agents/lists/robot.txt'),
+]
+
+def _get_package_path(filename):
+    """Retrieve path of a file in this Python package."""
+    return join(dirname(__file__), '../counter_robots/data/', filename)
 
 
 def update_file(url, filename):
     """Update the content of a single file."""
-    resp = requests.get(url)
-    if resp.status_code != 200:
+    resp = urlopen(url)
+    if resp.code != 200:
         raise Exception('GET {} failed.'.format(url))
-    lines = resp.text.splitlines()
-    lines = [s for s in lines if not s.startswith('#')]
-    with open(_get_resource_path(filename), "w+") as f:
-        for line in lines:
-            f.write(line+'\n')
+    with open(_get_package_path(filename), 'w') as fp:
+        for l in resp:
+            if not l.startswith(b'#'):
+                fp.write(l.decode('utf8'))
+    print('Updated {}'.format(filename))
+
+def main():
+    """Update the files containing the list of robots and machines."""
+    for filename, url in files:
+        update_file(url, filename)
+
+
+if __name__ == '__main__':
+    main()
