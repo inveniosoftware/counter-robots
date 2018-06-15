@@ -22,6 +22,4 @@ recursive-include docs *.rst
 recursive-include docs *.txt
 recursive-include docs Makefile
 recursive-include tests *.py
-
-# added by check_manifest.py
 recursive-include scripts *.py
