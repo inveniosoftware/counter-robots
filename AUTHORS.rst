@@ -9,3 +9,6 @@ Authors
 =======
 
 Library for COUNTER-compliant detection of machines and robots.
+
+- Chiara Bigarella <chiara.bigarella1@gmail.com>
+- Lars Holm Nielsen <lars.holm.nielsen@cern.ch>
