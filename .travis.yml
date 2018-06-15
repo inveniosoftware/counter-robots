@@ -35,7 +35,7 @@ deploy:
   provider: pypi
   user: inveniosoftware
   password:
-    secure: TODO:PYPISECUREHASH
+    secure: "Hi762HhOSKBvjlFedZuryQsWyS2iTuFalpNzb9iQ42UaAch7roCc9gLChOBzzvLiBr14ETc17f9MLmYqvtBvnSw0N9FPtbvZsTfvjzVu4J34AFE7sK+rwIqYtaVjyCXmKlcnIwW5knjXIzx6kk8dgYa1tmb48mCzWmGoicec2wJpdmdty+vCSMVAZi10Cnu+zSDOrZjdkx8xUEBGuicnTyLM4G3PCynLTvoGa+dhrGmS/28UnB03YQJ6BnV1FhtNro+Bpgf0x9wIH6ZiQz5489TDsjalt+KglxTaqRocCiI7q3bZ2hKZFIGucQGGC+tuKc2paG6CEzz7lAaTxlaUzgJXz9al7VNS3cwujXnJqxfuXFghIfGyLYDxRQq9b1i1IcrtyQyvVy22x3CdBu1SW/4LZp8vNV8iHvlmBGs3/Cj6TsiKqEYLTmRp4JX+32skRXimkhoDCXTJqxNVvQEIXerv64PbPCwwDM81cy/XelmEE/xom6677FyoOE+dfCKUxlBFi79Lei+V7Cz+904WhDUX8ohZyRx78SfUlCnlqaU8YNEKgsR3zR8rHAMhEkkPfYrlht6pBIqygA/mTuxeUJReYAcKuCEvEipCrVcPxmKkZnRdcwsnp5swj8elVUvPadft73WJFE+UcG7x5yFiNiXzI+hv/qveR9f5fRCfhw0="
   distributions: "sdist bdist_wheel"
   on:
     tags: true
