@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of COUNTER-Robots.
-# Copyright (C) 2018 CERN.
+# Copyright (C) 2018-2019 CERN.
 #
 # COUNTER-Robots is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -56,7 +56,7 @@ def _update_file(url, filename):
     if response.code != 200:
         raise Exception('GET {} failed.'.format(url))
 
-    user_agents = [agent.decode('utf-8') 
+    user_agents = [agent.decode('utf-8')
                    for agent in response if not agent.startswith(b'w')]
 
     with open(_get_package_path(filename), 'wb') as fp:

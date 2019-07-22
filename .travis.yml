@@ -1,11 +1,8 @@
-# -*- coding: utf-8 -*-
-#
 # This file is part of COUNTER-Robots.
-# Copyright (C) 2018 CERN.
+# Copyright (C) 2018-2019 CERN.
 #
 # COUNTER-Robots is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
-
 notifications:
   email: false
 
@@ -13,31 +10,53 @@ sudo: false
 
 language: python
 
+env:
+  global:
+  - secure: cAHIA+SmoaCaqjdntjd2IwvTSRGPYKPdtDnM91Lp2knmXbtHKbJ1Q03GjMkvmJJM+qfdNw9urwxk+aDaz/Sb8cF7EL/yE4Zi1c3NC4gqprPRN9mP8zOb++BnlQ7M4i0uX/J46WCFgJsuVUvbUzBeK/wWQHHjlZAz+rHy+fAe7D7E2T55SNdSGxYQ3YMIQtNYL0CZVyND09nRJCKW6s6Z0FWQXKlAg8J5poaOexU078h6pjyj6Oa9kQbUeJDwZQ0JA20Lalt35EXpLt7zzfOACkqrMEXsiiPzJcY8wB1bkRDljT0WVTv8S5j2wt50kcw+M1+8rdtrWgr7KBpzq2/itykHTfKep0M+PoMuFl700EkaWz6rEH4M09Tb83+mQM2yM1hsynHfD2coguAiJCessiIPxZ8KAUnf+aY2DrhAGO3t+gMF7OPg8ntU1o6Ia5KSir2MpzNC9RkANWNF8/joOqMrIqu0EyDCexTiMUR6TM1dlYCuENqqhjVeKVPijUABFawsCBAeI8MBMP/Q0WfmUNsgQ8iAbwZJAl/Jutl/khysjwQQ0clYOCCde9RpTaGjk3a3DWWZV35eYyd1HA3E8J82y6Vdt3yQSbY2IM1QOo8ahtf2GLdfQwXZ+xXu6H/8UULpwWJLYi8P+3z63visvamtpgpimAztBYnB2d3CmAY=
+
 python:
-  - "2.7"
-  - "3.5"
-  - "3.6"
+  - '3.6'
+  - '3.5'
+  - '2.7'
 
 before_install:
-  - "travis_retry pip install --upgrade pip setuptools py"
-  - "travis_retry pip install twine wheel coveralls"
+  - travis_retry pip install --upgrade pip setuptools py
+  - travis_retry pip install twine wheel coveralls
 
 install:
-  - "travis_retry pip install .[all]"
+  - travis_retry pip install .[all]
 
 script:
-  - "./run-tests.sh"
+  - ./run-tests.sh
 
 after_success:
   - coveralls
 
-deploy:
-  provider: pypi
-  user: inveniosoftware
-  password:
-    secure: "Hi762HhOSKBvjlFedZuryQsWyS2iTuFalpNzb9iQ42UaAch7roCc9gLChOBzzvLiBr14ETc17f9MLmYqvtBvnSw0N9FPtbvZsTfvjzVu4J34AFE7sK+rwIqYtaVjyCXmKlcnIwW5knjXIzx6kk8dgYa1tmb48mCzWmGoicec2wJpdmdty+vCSMVAZi10Cnu+zSDOrZjdkx8xUEBGuicnTyLM4G3PCynLTvoGa+dhrGmS/28UnB03YQJ6BnV1FhtNro+Bpgf0x9wIH6ZiQz5489TDsjalt+KglxTaqRocCiI7q3bZ2hKZFIGucQGGC+tuKc2paG6CEzz7lAaTxlaUzgJXz9al7VNS3cwujXnJqxfuXFghIfGyLYDxRQq9b1i1IcrtyQyvVy22x3CdBu1SW/4LZp8vNV8iHvlmBGs3/Cj6TsiKqEYLTmRp4JX+32skRXimkhoDCXTJqxNVvQEIXerv64PbPCwwDM81cy/XelmEE/xom6677FyoOE+dfCKUxlBFi79Lei+V7Cz+904WhDUX8ohZyRx78SfUlCnlqaU8YNEKgsR3zR8rHAMhEkkPfYrlht6pBIqygA/mTuxeUJReYAcKuCEvEipCrVcPxmKkZnRdcwsnp5swj8elVUvPadft73WJFE+UcG7x5yFiNiXzI+hv/qveR9f5fRCfhw0="
-  distributions: "sdist bdist_wheel"
-  on:
-    tags: true
-    python: "3.6"
-    repo: inveniosoftware/counter-robots
+stages:
+  - name: update
+    if: type = cron
+  - name: test
+    if: type != cron
+  - name: deploy
+    if: tag IS present
+
+jobs:
+  include:
+  - stage: update
+    python: '3.6'
+    before_script: ./run-update.sh
+    script: ./run-tests.sh
+    after_success:
+      - git remote add origin-travis https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}
+      - git push origin-travis HEAD:$TRAVIS_BRANCH --follow-tags
+  - stage: deploy
+    deploy:
+      provider: pypi
+      python: '3.6'
+      user: inveniosoftware
+      password:
+        secure: Hi762HhOSKBvjlFedZuryQsWyS2iTuFalpNzb9iQ42UaAch7roCc9gLChOBzzvLiBr14ETc17f9MLmYqvtBvnSw0N9FPtbvZsTfvjzVu4J34AFE7sK+rwIqYtaVjyCXmKlcnIwW5knjXIzx6kk8dgYa1tmb48mCzWmGoicec2wJpdmdty+vCSMVAZi10Cnu+zSDOrZjdkx8xUEBGuicnTyLM4G3PCynLTvoGa+dhrGmS/28UnB03YQJ6BnV1FhtNro+Bpgf0x9wIH6ZiQz5489TDsjalt+KglxTaqRocCiI7q3bZ2hKZFIGucQGGC+tuKc2paG6CEzz7lAaTxlaUzgJXz9al7VNS3cwujXnJqxfuXFghIfGyLYDxRQq9b1i1IcrtyQyvVy22x3CdBu1SW/4LZp8vNV8iHvlmBGs3/Cj6TsiKqEYLTmRp4JX+32skRXimkhoDCXTJqxNVvQEIXerv64PbPCwwDM81cy/XelmEE/xom6677FyoOE+dfCKUxlBFi79Lei+V7Cz+904WhDUX8ohZyRx78SfUlCnlqaU8YNEKgsR3zR8rHAMhEkkPfYrlht6pBIqygA/mTuxeUJReYAcKuCEvEipCrVcPxmKkZnRdcwsnp5swj8elVUvPadft73WJFE+UcG7x5yFiNiXzI+hv/qveR9f5fRCfhw0=
+      distributions: sdist bdist_wheel
+      on:
+        tags: true
+        repo: inveniosoftware/counter-robots
