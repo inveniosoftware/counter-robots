@@ -20,21 +20,24 @@ def test_version():
 
 
 def test_is_robot():
+    """Test for robots."""
     machine_ua = 'Wget/1.14 (linux-gnu)'
+    assert not is_robot(machine_ua)
     robot_ua = 'AdsBot-Google (+http://www.google.com/adsbot.html)'
-    assert is_robot(machine_ua) is not True
-    assert is_robot(robot_ua) is True
+    assert is_robot(robot_ua)
 
 
 def test_is_machine():
+    """Test for machines."""
     machine_ua = 'Wget/1.14 (linux-gnu)'
+    assert is_machine(machine_ua)
     robot_ua = 'AdsBot-Google (+http://www.google.com/adsbot.html)'
-    assert is_machine(machine_ua) is True
-    assert is_machine(robot_ua) is not True
+    assert not is_machine(robot_ua)
 
 
 def test_is_robot_or_machine():
+    """Test for both robots or machines."""
     machine_ua = 'Wget/1.14 (linux-gnu)'
+    assert is_robot_or_machine(machine_ua)
     robot_ua = 'AdsBot-Google (+http://www.google.com/adsbot.html)'
-    assert is_robot_or_machine(machine_ua) is True
-    assert is_robot_or_machine(robot_ua) is True
+    assert is_robot_or_machine(robot_ua)

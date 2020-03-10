@@ -37,11 +37,10 @@ files = {
     'unclassified.txt':
         'https://raw.githubusercontent.com/CDLUC3/Make-Data-Count/'
         'master/user-agents/lists/unclassified.txt'
-
 }
 
 def _create_set(filename):
-    """Create a set containing all lines in the file"""
+    """Create a set containing all lines in the file."""
     with open(_get_package_path(filename), 'r') as fp:
         return set(fp.readlines())
 
@@ -54,7 +53,7 @@ def _update_file(url, filename):
     """Update the content of a single file."""
     response = urlopen(url)
     if response.code != 200:
-        raise Exception('GET {} failed.'.format(url))
+        raise Exception('{0} GET {1} failed.'.format(response.code, url))
 
     user_agents = [agent.decode('utf-8')
                    for agent in response if not agent.startswith(b'w')]
@@ -67,7 +66,8 @@ def _update_file(url, filename):
 
 
 def _filter_machines_from_robots(files):
-    """
+    """Filter Machines from robots.
+
     The Counter-Robots repository keeps a list of all user-agents that are
     regarded robots/spyders. The Make-Data-Count repository uses manually
     curated lists to seperate machine user-agents from robot user-agents.
