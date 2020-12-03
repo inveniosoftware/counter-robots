@@ -12,8 +12,8 @@
 .. image:: https://img.shields.io/github/license/inveniosoftware/counter-robots.svg
         :target: https://github.com/inveniosoftware/counter-robots/blob/master/LICENSE
 
-.. image:: https://img.shields.io/travis/inveniosoftware/counter-robots.svg
-        :target: https://travis-ci.org/inveniosoftware/counter-robots
+.. image:: https://github.com/inveniosoftware/counter-robots/workflows/CI/badge.svg
+        :target: https://github.com/inveniosoftware/counter-robots/actions
 
 .. image:: https://img.shields.io/coveralls/inveniosoftware/counter-robots.svg
         :target: https://coveralls.io/r/inveniosoftware/counter-robots
