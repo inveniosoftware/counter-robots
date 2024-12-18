@@ -31,8 +31,8 @@ files = [
      'https://raw.githubusercontent.com/CDLUC3/Make-Data-Count/'
      'master/user-agents/lists/machine.txt'),
     ('robot.txt',
-     'https://raw.githubusercontent.com/CDLUC3/Make-Data-Count/'
-     'master/user-agents/lists/robot.txt'),
+     'https://raw.githubusercontent.com/atmire/COUNTER-Robots/'
+     'master/generated/COUNTER_Robots_list.txt'),
 ]
 
 def _get_package_path(filename):
