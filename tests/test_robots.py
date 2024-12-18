@@ -20,7 +20,7 @@ def test_version():
 
 
 def test_is_robot():
-    machine_ua = 'Wget/1.14 (linux-gnu)'
+    machine_ua = 'PostmanRuntime/7.30.0'
     robot_ua = 'AdsBot-Google (+http://www.google.com/adsbot.html)'
     assert is_robot(machine_ua) is not True
     assert is_robot(robot_ua) is True
