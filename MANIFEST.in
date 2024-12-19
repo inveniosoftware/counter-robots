@@ -13,6 +13,7 @@ include *.rst
 include *.sh
 include LICENSE
 include pytest.ini
+include bump_version.py
 prune docs/_build
 recursive-include .github/workflows *.yml
 recursive-include counter_robots *.po *.pot *.mo
