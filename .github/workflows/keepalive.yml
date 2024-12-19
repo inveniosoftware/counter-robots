@@ -1,0 +1,27 @@
+name: Keepalive
+
+on:
+  schedule:
+    - cron: "0 0 1 * *" # Run once a month
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+
+  keepalive:
+    name: Keepalive
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: keepalive
+
+      # ensures that crons are not suspended after 60 days
+      - name: Keepalive check
+        uses: gautamkrishnar/keepalive-workflow@v1
+        with:
+          gh_token: ${{ secrets.INVENIOBOT_PAT }}

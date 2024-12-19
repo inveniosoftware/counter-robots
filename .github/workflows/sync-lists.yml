@@ -1,0 +1,59 @@
+# -*- coding: utf-8 -*-
+#
+# This file is part of Invenio.
+# Copyright (C) 2024 CERN.
+#
+# Invenio is free software; you can redistribute it and/or modify it
+# under the terms of the MIT License; see LICENSE file for more details.
+
+name: Sync and Release
+
+on:
+  schedule:
+    - cron: "0 0 1 * *" # Run once a month
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason'
+        required: false
+        default: 'Manual trigger'
+
+permissions:
+  contents: write
+
+jobs:
+  check-and-update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Run script to update robot and machine lists
+        run: |
+          cd scripts/ && python update-lists.py && cd ..
+
+      - name: Check for changes
+        run: |
+          git diff --quiet || echo "changes_detected=true" >> $GITHUB_ENV
+        continue-on-error: true
+
+      - name: Commit if changes detected
+        if: env.changes_detected == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add ./counter_robots/data/machine.txt ./counter_robots/data/robot.txt
+          git commit -m "Update robots and machines lists"
+          git push
+
+      - name: Update version and push release commit
+        if: env.changes_detected == 'true'
+        run: |
+          NEW_VERSION=$(python bump_version.py)
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add version.py
+          git commit -m "release: $NEW_VERSION"
+          git push
