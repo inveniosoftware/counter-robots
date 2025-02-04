@@ -1,3 +1,11 @@
+# -*- coding: utf-8 -*-
+#
+# This file is part of Invenio.
+# Copyright (C) 2025 CERN.
+#
+# Invenio is free software; you can redistribute it and/or modify it
+# under the terms of the MIT License; see LICENSE file for more details.
+
 name: Keepalive
 
 on:
@@ -9,7 +17,6 @@ permissions:
   contents: write
 
 jobs:
-
   keepalive:
     name: Keepalive
     runs-on: ubuntu-latest
@@ -17,11 +24,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: keepalive
 
-      # ensures that crons are not suspended after 60 days
+      # ensures that crons are not suspended after 45 days
       - name: Keepalive check
-        uses: gautamkrishnar/keepalive-workflow@v1
-        with:
-          gh_token: ${{ secrets.INVENIOBOT_PAT }}
+        uses: gautamkrishnar/keepalive-workflow@v2
