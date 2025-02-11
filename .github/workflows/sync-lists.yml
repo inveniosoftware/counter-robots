@@ -12,10 +12,6 @@ on:
   schedule:
     - cron: "0 0 1 * *" # Run once a month
   workflow_dispatch:
-  push:
-    branches:
-      - 'feature/auto-release'
-  pull_request:
 
 permissions: # This permission is needed for the keep-alive and auto-commit actions
   contents: write
