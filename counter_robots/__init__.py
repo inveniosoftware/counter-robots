@@ -14,12 +14,12 @@ from os.path import join
 
 import pkg_resources
 
-__version__ = '2018.6'
+__version__ = "2018.6"
 
 
 def _get_resource_content(filename):
     """Retrieve content from a file in this Python package."""
-    return pkg_resources.resource_string(__name__, join('data', filename))
+    return pkg_resources.resource_string(__name__, join("data", filename))
 
 
 def memoize(func):
@@ -31,14 +31,15 @@ def memoize(func):
         if filename not in cache:
             cache[filename] = func(filename)
         return cache[filename]
+
     return inner
 
 
 @memoize
 def _regexp(filename):
     """Get a list of patterns from a file and make a regular expression."""
-    lines = _get_resource_content(filename).decode('utf-8').splitlines()
-    return re.compile('|'.join(lines))
+    lines = _get_resource_content(filename).decode("utf-8").splitlines()
+    return re.compile("|".join(lines))
 
 
 def _match_useragent(user_agent, filename):
@@ -50,7 +51,7 @@ def is_robot(user_agent):
 
     Determined according to the *Code of Practice for Research Data*.
     """
-    return _match_useragent(user_agent, 'robot.txt')
+    return _match_useragent(user_agent, "robot.txt")
 
 
 def is_machine(user_agent):
@@ -58,7 +59,7 @@ def is_machine(user_agent):
 
     Determined according to the *Code of Practice for Research Data*.
     """
-    return _match_useragent(user_agent, 'machine.txt')
+    return _match_useragent(user_agent, "machine.txt")
 
 
 def is_robot_or_machine(user_agent):
@@ -70,8 +71,8 @@ def is_robot_or_machine(user_agent):
 
 
 __all__ = (
-    '__version__',
-    'is_machine',
-    'is_robot',
-    'is_robot_or_machine',
+    "__version__",
+    "is_machine",
+    "is_robot",
+    "is_robot_or_machine",
 )

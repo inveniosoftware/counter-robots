@@ -25,29 +25,35 @@ except ImportError:
 
 
 files = [
-    ('machine.txt',
-     'https://raw.githubusercontent.com/CDLUC3/Make-Data-Count/'
-     'master/user-agents/lists/machine.txt'),
-    ('robot.txt',
-     'https://raw.githubusercontent.com/atmire/COUNTER-Robots/'
-     'master/generated/COUNTER_Robots_list.txt'),
+    (
+        "machine.txt",
+        "https://raw.githubusercontent.com/CDLUC3/Make-Data-Count/"
+        "master/user-agents/lists/machine.txt",
+    ),
+    (
+        "robot.txt",
+        "https://raw.githubusercontent.com/atmire/COUNTER-Robots/"
+        "master/generated/COUNTER_Robots_list.txt",
+    ),
 ]
+
 
 def _get_package_path(filename):
     """Retrieve path of a file in this Python package."""
-    return join(dirname(__file__), '../counter_robots/data/', filename)
+    return join(dirname(__file__), "../counter_robots/data/", filename)
 
 
 def update_file(url, filename):
     """Update the content of a single file."""
     resp = urlopen(url)
     if resp.code != 200:
-        raise Exception('GET {} failed.'.format(url))
-    with open(_get_package_path(filename), 'w') as fp:
+        raise Exception("GET {} failed.".format(url))
+    with open(_get_package_path(filename), "w") as fp:
         for l in resp:
-            if not l.startswith(b'#'):
-                fp.write(l.decode('utf8'))
-    print('Updated {}'.format(filename))
+            if not l.startswith(b"#"):
+                fp.write(l.decode("utf8"))
+    print("Updated {}".format(filename))
+
 
 def main():
     """Update the files containing the list of robots and machines."""
@@ -55,5 +61,5 @@ def main():
         update_file(url, filename)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
