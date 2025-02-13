@@ -38,7 +38,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install .[all]
+          pip install .[tests]
           pip freeze
 
       - name: Run tests

@@ -21,7 +21,7 @@ one of the API functions with a user agent string:
 True
 >>> is_robot('AdsBot-Google (+http://www.google.com/adsbot.html)')
 True
->>> is_robot_or_machine('Mozilla/5.0')
+>>> is_robot_or_machine('Mozilla/5.0 (Macintosh; Intel Mac OS X 14.7; rv:135.0) Gecko/20100101 Firefox/135.0')
 False
 
 API
