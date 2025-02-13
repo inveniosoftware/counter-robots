@@ -57,10 +57,10 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           file_pattern: 'counter_robots/__init__.py'
-          commit_message: 'release: ${{ env.new_version }}'
+          commit_message: 'release: v${{ env.new_version }}'
 
       - name: Create and push tag
         run: |
           git fetch --tags
-          git tag "v${{ env.new_version }}" -a "release: ${{ env.new_version }}"
+          git tag "v${{ env.new_version }}" -a "release: v${{ env.new_version }}"
           git push origin "v${{ env.new_version }}"
