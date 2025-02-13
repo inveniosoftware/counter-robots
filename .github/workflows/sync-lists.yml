@@ -51,12 +51,12 @@ jobs:
         run: |
           NEW_VERSION=$(date +'%Y.%m')
           echo "new_version=$NEW_VERSION" >> $GITHUB_ENV
-          sed -i 's/^__version__ = .*/__version__ = '"'"$NEW_VERSION"'"'/' counter_robots/version.py
+          sed -i 's/^__version__ = .*/__version__ = '"'"$NEW_VERSION"'"'/' counter_robots/__init__.py
 
       - name: Push release commit
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          file_pattern: 'counter_robots/version.py'
+          file_pattern: 'counter_robots/__init__.py'
           commit_message: 'release: ${{ env.new_version }}'
 
       - name: Create and push tag

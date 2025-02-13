@@ -29,7 +29,7 @@ package. The procedure is as follows:
     $ git add counter_robots/data/*.txt
     $ git commit -m "Update machine and robots lists"
 
-3) Bump version in ``counter_robots/version.py`` and ``CHANGES.rst``. The new
+3) Bump version in ``counter_robots/__init__.py`` and ``CHANGES.rst``. The new
    version number is made using the pattern ``YYYY.MM`` (note, without leading
    zeros - e.g. ``2018.6``)
 
@@ -37,5 +37,5 @@ package. The procedure is as follows:
 
 .. code-block:: console
 
-    $ git add counter_robots/version.py CHANGES.rst
+    $ git add counter_robots/__init__.py CHANGES.rst
     $ git commit -m "release: YYYY.MM"

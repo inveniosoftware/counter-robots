@@ -14,7 +14,7 @@ from os.path import join
 
 import pkg_resources
 
-from .version import __version__
+__version__ = '2018.6'
 
 
 def _get_resource_content(filename):
