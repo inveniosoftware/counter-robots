@@ -2,6 +2,7 @@
 #
 # This file is part of COUNTER-Robots.
 # Copyright (C) 2018-2025 CERN.
+# Copyright (C) 2025 Graz University of Technology.
 #
 # COUNTER-Robots is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -10,16 +11,15 @@
 
 import re
 from functools import wraps
-from os.path import join
-
-import pkg_resources
+from importlib.resources import files
 
 __version__ = "2025.2"
 
 
 def _get_resource_content(filename):
     """Retrieve content from a file in this Python package."""
-    return pkg_resources.resource_string(__name__, join("data", filename))
+    file_ = files(__package__) / "data" / filename
+    return file_.read_text()
 
 
 def memoize(func):
@@ -38,7 +38,7 @@ def memoize(func):
 @memoize
 def _regexp(filename):
     """Get a list of patterns from a file and make a regular expression."""
-    lines = _get_resource_content(filename).decode("utf-8").splitlines()
+    lines = _get_resource_content(filename).splitlines()
     return re.compile("|".join(lines))
 
 
