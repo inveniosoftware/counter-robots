@@ -33,7 +33,13 @@ jobs:
       - name: Check for changes
         id: diff
         run: |
-          git diff --quiet counter_robots/data/ || echo "changes_detected=true" >> $GITHUB_ENV
+          if git diff --quiet counter_robots/data/; then
+            echo "No changes detected in `counter_robots/data/machine.txt or `counter_robots/data/COUNTER_Robots_list.txt`"
+            echo "changes_detected=false" >> $GITHUB_ENV
+          else
+            echo "New version of `counter_robots/data/machine.txt or `counter_robots/data/COUNTER_Robots_list.txt`"
+            echo "changes_detected=true" >> $GITHUB_ENV
+          fi
 
   update-repo:
     runs-on: ubuntu-latest
@@ -44,7 +50,7 @@ jobs:
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          file_pattern: 'counter_robots/data/*.txt'
+          file_pattern: "counter_robots/data/*.txt"
           commit_message: Update robots and machines lists
 
       - name: Update version
@@ -56,8 +62,8 @@ jobs:
       - name: Push release commit
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          file_pattern: 'counter_robots/__init__.py'
-          commit_message: 'release: v${{ env.new_version }}'
+          file_pattern: "counter_robots/__init__.py"
+          commit_message: "release: v${{ env.new_version }}"
 
       - name: Create and push tag
         run: |
