@@ -13,7 +13,7 @@ import re
 from functools import wraps
 from importlib.resources import files
 
-__version__ = "2025.2"
+__version__ = "2025.11"
 
 
 def _get_resource_content(filename):
