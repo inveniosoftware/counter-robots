@@ -1,0 +1,129 @@
+# Curated non-browser tools and CLIs seen accessing research-data repositories
+# that the crawler-user-agents dataset does not cover. Matched case-insensitively.
+# One regex per line.
+AdobeUxTechC4
+BinderHub
+CherryStudio\/
+Commons-HttpClient
+DefaultLangchainUserAgent
+Download Master
+Embarcadero URI Client
+GeoServer
+GuzzleHttp
+HDXPythonLibrary/
+Lavf\/
+Microsoft BITS
+Myget
+Nexgate Ruby Client
+PersepolisDM
+PostmanRuntime
+PowerShell\/
+QGIS\/
+QR Scanner Android
+QuarkCloudDrivePC
+QuickLook\/
+Symfony (BrowserKit|HttpClient)
+Thunder/[0-9]+\.[0-9]+\.[0-9]+ Platform/
+ThunderBrowser/
+Thunder\/
+TraeCN
+WindowsPowerShell\/
+Zotero/
+\bR \(\d
+^Ametys/
+^AndroidDownloadManager/
+^AndroidHttpClient
+^Apptainer\/
+^Axel/
+^Bun/
+^Dalvik\/
+^Dart/
+^Deno\/
+^Drakma/
+^EndNote
+^Expo\/
+^FDM\/
+^Faraday
+^GDAL/
+^HTTP Client
+^HTTP\.jl\/
+^Hydra\/
+^IGV Version
+^Java/
+^Lavf,
+^MATLAB
+^MATLAB 
+^MATLAB\/
+^Microsoft Office/
+^Microsoft\.Data\.Mashup
+^Next\.js Middleware
+^Nextflow
+^OkDownload/
+^Oxigraph\/
+^P3P Validator
+^RStudio
+^Ruby$
+^Thumbor/
+^TotalValidator\/
+^Transmission/
+^Zend
+^astropy
+^bakta/
+^buildkit\/
+^cell2cell-user
+^datalad
+^decoupler/
+^disdrodb
+^galaxy\/
+^gist\/
+^globalbioticinteractions
+^go-camo
+^htmltest\/
+^ir_datasets\/
+^moabb/
+^myst-cli\/
+^netdisk
+^node$
+^nuest/geoextent
+^pharokka\/
+^plassembler\/
+^polars/
+^pooch
+^pooch/
+^powerplantmatching
+^pudl
+^pudl\/
+^py4dgeo
+^pymovements
+^pymovements\/
+^pyspectral
+^pyxem
+^rclone\/
+^repo2docker 
+^req/v
+^siril[/-]
+^stagefright\/
+^thunder/
+^undici
+^vBulletin
+^webtech\/
+chocolatey command line
+com\.xunlei
+genome\.ucsc\.edu
+go-resty/
+instanovo
+ktor-client
+matrix-media-repo
+ms-office
+obsidian/
+org\.GBIF
+premise-lca
+pymovements
+pytorch/vision
+quark-cloud-drive
+scanpy-user
+socialmixr
+softxm;netdisk
+tls-client\/
+torch\.hub
+uc-cloud-drive

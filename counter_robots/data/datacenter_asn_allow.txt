@@ -1,0 +1,18 @@
+# Allow list: ASNs never treated as datacenter even when a source lists them,
+# because they carry real browser users. One ASN per line; trailing comments allowed.
+714      # Apple (iCloud Private Relay egress)
+# Eyeball/academic networks bad-asn-list flags but PeeringDB confirms carry users.
+36873    # Airtel Networks Nigeria (PeeringDB NSP)
+37170    # University of Lagos (academic)
+37472    # NigComSat (PeeringDB Cable/DSL/ISP)
+202023   # Only, France (PeeringDB Cable/DSL/ISP)
+327705   # Federal University of Technology Akure (PeeringDB Educational/Research)
+327942   # Landmark University (PeeringDB Educational/Research)
+# open-bot-list calls these isp; PeeringDB does not declare them Content, so they
+# likely carry real users. Allow-listed because excluding a real user's events is
+# worse than counting an occasional bot.
+22363    # Powerhouse Management (PeeringDB Cable/DSL/ISP)
+37248    # Phase3 Telecom
+47588    # TEL Communications
+55799    # IPTELECOM ASIA
+132225   # China Telecom
